@@ -30,7 +30,7 @@ async def lunaQuery(query: str, user_id: int):
         if LANGUAGE == "en"
         else (await arq.translate(query, "en")).result.translatedText
     )
-    resp = (await arq.luna(query, user_id)).result
+    resp = (await arq.tezza(query, user_id)).result
     return (
         resp
         if LANGUAGE == "en"
@@ -45,12 +45,12 @@ async def type_and_send(message):
     user_id = message.from_user.id if message.from_user else 0
     query = message.text.strip()
     await message._client.send_chat_action(chat_id, "typing")
-    response, _ = await gather(lunaQuery(query, user_id), sleep(2))
+    response, _ = await gather(tezzaQuery(query, user_id), sleep(2))
     await message.reply_text(response)
     await message._client.send_chat_action(chat_id, "cancel")
 
 
-@luna.on_message(filters.command("repo") & ~filters.edited)
+@tezza.on_message(filters.command("repo") & ~filters.edited)
 async def repo(_, message):
     await message.reply_text(
         "[GitHub](https://github.com/thehamkercat/LunaChatBot)"
@@ -59,14 +59,14 @@ async def repo(_, message):
     )
 
 
-@luna.on_message(filters.command("help") & ~filters.edited)
+@tezza.on_message(filters.command("help") & ~filters.edited)
 async def start(_, message):
     await luna.send_chat_action(message.chat.id, "typing")
     await sleep(2)
     await message.reply_text("/repo - Get Repo Link")
 
 
-@luna.on_message(
+@tezza.on_message(
     ~filters.private
     & filters.text
     & ~filters.command("help")
@@ -82,7 +82,7 @@ async def chat(_, message):
             return
     else:
         match = re.search(
-            "[.|\n]{0,}luna[.|\n]{0,}",
+            "[.|\n]{0,}tezza[.|\n]{0,}",
             message.text.strip(),
             flags=re.IGNORECASE,
         )
@@ -91,7 +91,7 @@ async def chat(_, message):
     await type_and_send(message)
 
 
-@luna.on_message(
+@tezza.on_message(
     filters.private & ~filters.command("help") & ~filters.edited
 )
 async def chatpm(_, message):
@@ -109,7 +109,7 @@ async def main():
     print(
         """
 -----------------
-| Luna Started! |
+| Tezza Started! |
 -----------------
 """
     )
