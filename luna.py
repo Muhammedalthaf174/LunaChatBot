@@ -59,7 +59,7 @@ async def repo(_, message):
     )
 
 
-@tezza.on_message(filters.command("help") & ~filters.edited)
+@luna.on_message(filters.command("help") & ~filters.edited)
 async def start(_, message):
     await luna.send_chat_action(message.chat.id, "typing")
     await sleep(2)
