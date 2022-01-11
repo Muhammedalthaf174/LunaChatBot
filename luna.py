@@ -105,7 +105,7 @@ async def main():
     session = ClientSession()
     arq = ARQ(ARQ_API_BASE_URL, ARQ_API_KEY, session)
 
-    await luna.start()
+    await tezza.start()
     print(
         """
 -----------------
