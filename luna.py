@@ -50,7 +50,7 @@ async def type_and_send(message):
     await message._client.send_chat_action(chat_id, "cancel")
 
 
-@tezza.on_message(filters.command("repo") & ~filters.edited)
+@luna.on_message(filters.command("repo") & ~filters.edited)
 async def repo(_, message):
     await message.reply_text(
         "[GitHub](https://github.com/thehamkercat/LunaChatBot)"
@@ -66,7 +66,7 @@ async def start(_, message):
     await message.reply_text("/repo - Get Repo Link")
 
 
-@tezza.on_message(
+@luna.on_message(
     ~filters.private
     & filters.text
     & ~filters.command("help")
@@ -91,7 +91,7 @@ async def chat(_, message):
     await type_and_send(message)
 
 
-@tezza.on_message(
+@luna.on_message(
     filters.private & ~filters.command("help") & ~filters.edited
 )
 async def chatpm(_, message):
